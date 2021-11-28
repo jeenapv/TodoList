@@ -1,13 +1,9 @@
 
-import React ,{useState} from "react";
+import React  from "react";
 
-import { Button, Card, Form ,Modal} from 'react-bootstrap';
-function Example({show, handleClose, handleShow, removeTodo}) {
-    // const [show, setShow] = useState(false);
-  
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
-  
+import { Button,Modal} from 'react-bootstrap';
+function DeleteModal({show, handleClose, removeTodo}) {
+    
     return (
       <>
   
@@ -29,4 +25,4 @@ function Example({show, handleClose, handleShow, removeTodo}) {
     );
   }
 
-  export default Example;
+  export default DeleteModal;

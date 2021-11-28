@@ -1,17 +1,16 @@
 import React from "react";
 import { Button, Card, Form } from 'react-bootstrap';
 import {addTodo} from '../MockData';
-import {
-    useNavigate
-  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function AddTodo({ addTodoList }) {
+function AddTodo() {
     const [value, setValue] = React.useState("");
-  const history=useNavigate();
+    const history=useNavigate();
+
     const handleSubmit = e => {
       e.preventDefault();
       if (!value) return;
-      const todo =addTodo(value);
+      const todo = addTodo(value);
       console.log("todo",todo)
       setValue("");
       history('/');
@@ -19,17 +18,19 @@ function AddTodo({ addTodoList }) {
   
     return (
         <div className="app">
-       <div className="container">
-      <Form onSubmit={handleSubmit}> 
-      <Form.Group>
-        <Form.Label><b>Add Todo</b></Form.Label>
-        <Form.Control type="text" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo" />
-      </Form.Group>
-      <Button variant="primary mb-3" type="submit" >
-        Submit
-      </Button>
-    </Form>
-    </div>
+          <div className="container">
+            <Form onSubmit={handleSubmit}> 
+              <Form.Group>
+              <Form.Control type="text" className="input mb-3" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo" />
+              </Form.Group>
+              <Button variant="primary" style={{marginRight:"10px"}} type="submit" disabled={!value} >
+                Submit
+              </Button>
+              <Button variant="secondary" type="dark" onClick={()=>history('/')} >
+                Cancel
+              </Button>
+        </Form>
+      </div>
     </div>
     );
   }

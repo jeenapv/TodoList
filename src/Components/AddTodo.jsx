@@ -1,17 +1,18 @@
-import React from "react";
-import { Button, Card, Form } from 'react-bootstrap';
-import {addTodo} from '../MockData';
+import React,{useState} from "react";
+import { Button,  Form } from 'react-bootstrap';
+import { useDispatch } from "react-redux";
+import { addTodo } from '../actions/todoActions';
 import { useNavigate } from "react-router-dom";
 
 function AddTodo() {
-    const [value, setValue] = React.useState("");
-    const history=useNavigate();
+    const [value, setValue] = useState("");
+    const history = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = e => {
       e.preventDefault();
       if (!value) return;
-      const todo = addTodo(value);
-      console.log("todo",todo)
+      dispatch(addTodo(value));
       setValue("");
       history('/');
     };

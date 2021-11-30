@@ -1,19 +1,23 @@
-import React from "react";
-import { Button, Card, Form } from 'react-bootstrap';
-import {getTodoId,updateTodo} from '../MockData';
+import React, {useState} from "react";
+import { Button, Form } from 'react-bootstrap';
+import { useSelector ,useDispatch } from "react-redux";
 import { useParams,useNavigate } from 'react-router-dom';
+import { getTodoId, updateTodo } from '../actions/todoActions';
 
 
 function UpdateTodo() {
   let { id } = useParams();
   const history= useNavigate();
-  console.log("getTodoId",getTodoId(id))
-    const [value, setValue] = React.useState(getTodoId(id)?.text);
+  const dispatch = useDispatch();
+
+  const todoItem = useSelector(state => state?.TodoReducer);
+  const selectedItem = todoItem.find(item=> { return item.id === parseInt(id)});
+  const [value, setValue] = useState(selectedItem?.text);
   
     const handleSubmit = e => {
       e.preventDefault();
       if (!value) return;
-      updateTodo(value,id);
+      dispatch(updateTodo(id,value));
       setValue("");
       history("/")
     };
@@ -25,7 +29,7 @@ function UpdateTodo() {
         <Form.Control type="text" className="input mb-3" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo" />
       </Form.Group>
       <Button variant="primary" type="submit" style={{marginRight:"10px"}} disabled= {(getTodoId(id).text )=== value}>
-        Submit
+        Update
       </Button>
       <Button variant="secondary" type="dark" onClick={()=>history('/')} >
           Cancel
